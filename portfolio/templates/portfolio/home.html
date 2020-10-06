@@ -11,16 +11,41 @@
     <title>Don's Portfolio</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div class="container-fluid p-0">
+      <div class="row no-gutters">
+        <div class="col" style="background-color: #eee; position: relative;">
+          <h1 class="display-1" style="position: absolute; top: 40%; right: 20px;">Hello, world!</h1>
+          <ul class="nav">
+            <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'post:all_blogs' %}" class="nav-link">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col" style="background-color: black;">
+          {% load static %}
+          <img src="{% static 'portfolio/profile_bgb.jpg' %}" alt="profile photo" style="width: auto; height: 100vh;">
+        </div>
+      </div>
+    </div>
+    <div class="container mt-5">
+      <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4 card mb-3" style="border: none;">
+          <img src="{{ project.image.url}}" alt="beach" class="card-img-top img-thumbnail" style="min-height: 230px; height: 230px; overflow: hidden;">
+          <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="cart-text">{{ project.description }}</p>
+            {% if project.url %}
+            <a href="{{ project.url}}" class="btn btn-info">Link</a>
+            {% endif %}  
+          </div>          
+        </div>
+        {% endfor %}
+      </div>
+    </div>
 
-    {% for project in projects %}
-        <img src="{{ project.image.url}}" alt="beach" width="200" height="auto">
-        <h2>{{ project.title }}</h2>
-        <p>{{ project.description }}</p>
-        {% if project.url %}
-        <a href="{{ project.url}}">Link</a>
-        {% endif %}  
-    {% endfor %}
+    
+
+    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
